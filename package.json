@@ -1,0 +1,22 @@
+{
+  "name": "tiny-cli-toolkit",
+  "version": "0.2.0",
+  "description": "A small collection of zero-dependency CLI utilities for everyday developer workflows.",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "bin": {
+    "jsonfmt": "src/jsonfmt.js",
+    "sizes": "src/sizes.js",
+    "dupes": "src/dupes.js"
+  },
+  "scripts": {
+    "test": "node --test test/",
+    "jsonfmt": "node src/jsonfmt.js",
+    "sizes": "node src/sizes.js",
+    "dupes": "node src/dupes.js"
+  },
+  "keywords": ["cli", "toolkit", "zero-dependency", "json", "duplicates"],
+  "license": "MIT"
+}
