@@ -12,7 +12,7 @@
     "dupes": "src/dupes.js"
   },
   "scripts": {
-    "test": "node --test test/",
+    "test": "node --test",
     "jsonfmt": "node src/jsonfmt.js",
     "sizes": "node src/sizes.js",
     "dupes": "node src/dupes.js"
