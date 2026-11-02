@@ -12,6 +12,7 @@ No frameworks, no build step — just Node.js 18+ and the standard library.
 | `node src/jsonfmt.js <file>` | Pretty-print and validate a JSON file |
 | `node src/sizes.js <dir>` | Report the largest files in a directory tree |
 | `node src/dupes.js <dir>` | Find duplicate files by SHA-256 content hash |
+| `node src/lines.js <file>...` | Count total / code / comment / blank lines per file |
 
 ## Install
 
@@ -33,6 +34,9 @@ node src/sizes.js . --limit 20
 
 # Duplicate detection
 node src/dupes.js ./src
+
+# Line counts, with a per-file breakdown and a total
+node src/lines.js src/lines.js src/jsonfmt.js
 ```
 
 ## Example output
@@ -45,6 +49,25 @@ $ node src/sizes.js . --limit 3
 
 7 files, 5.4KB total
 ```
+
+```text
+$ node src/lines.js src/lines.js
+file                     total  blank  comment  code
+----------------------------------------------------
+src/lines.js               117     10        0   107
+————————————————————————————————————
+TOTAL                      117     10        0   107
+```
+
+## Design notes
+
+- **Zero runtime dependencies**, so the tools keep working years from now.
+- Every command exits non-zero on error and prints a single readable line to stderr.
+- Directories are walked with `fs.opendir` to keep memory flat on large trees.
+- Duplicate detection groups by file size first, so only size collisions get hashed.
+- `lines` classifies a line as a comment only when the trimmed line starts with the
+  language's comment marker (`//` for C-family, `#` for Python/Shell/YAML), so code
+  that merely contains a comment token mid-line is still counted as code.
 
 ## Design notes
 
